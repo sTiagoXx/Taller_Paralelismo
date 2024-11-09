@@ -234,7 +234,7 @@ Tiempo paralelo (ForkJoin): 60 ms
 - ForkJoinPool: fue el método más rápido (60 ms), mostrando que aprovecha mejor los recursos del sistema para listas grandes.
 ### Conclusión
 
-Secuencial: Suficiente para listas pequeñas.
-Corrutinas: Adecuado para tamaños de listas medianas o en sistemas con pocos núcleos.
-ForkJoinPool: Recomendado para listas grandes y sistemas multicore.
+Secuencial: Suficiente para listas pequeñas. <br>
+Corrutinas: Adecuado para tamaños de listas medianas o en sistemas con pocos núcleos. <br>
+ForkJoinPool: Recomendado para listas grandes y sistemas multicore. <br>
 
