@@ -120,3 +120,75 @@ Un "scheduler" (planificador) es el componente encargado de asignar y gestionar 
    - Balanceo de carga: es difícil distribuir equitativamente las tareas en todos los núcleos. Algoritmos de balanceo de carga dinámico ayudan a mantener una distribución equitativa.
    - Escalabilidad: asegurar que el sistema pueda manejar el incremento de tareas y procesadores. Se puede mitigar utilizando arquitecturas de sistema escalables y protocolos de comunicación eficientes.
    - Deadlocks y bloqueos: para evitarlos, se utilizan técnicas de prevención y resolución de deadlocks, como los time-outs y el orden en la asignación de recursos.
+
+### Ejercicio de implementación 
+
+```kotlin
+import kotlinx.coroutines.*
+import java.util.concurrent.RecursiveTask
+import java.util.concurrent.ForkJoinPool
+import kotlin.system.measureTimeMillis
+
+// Implementación secuencial
+fun sumList(numbers: List<Int>): Int {
+    var sum = 0
+    for (number in numbers) {
+        sum += number
+    }
+    return sum
+}
+
+// Implementación paralela usando corrutinas
+fun sumListParallelCoroutine(numbers: List<Int>): Int = runBlocking {
+    val chunkSize = numbers.size / 4  // Dividir la lista en 4 partes
+    val deferredResults = (0 until 4).map { i ->
+        async {
+            numbers.subList(i * chunkSize, (i + 1) * chunkSize).sum()
+        }
+    }
+    deferredResults.awaitAll().sum() // Esperar a todas las corrutinas y sumar los resultados
+}
+
+// Implementación paralela usando ForkJoinPool
+class SumTask(private val numbers: List<Int>, private val start: Int, private val end: Int) : RecursiveTask<Int>() {
+    override fun compute(): Int {
+        return if (end - start <= 250_000) {  // Tamaño mínimo para dividir
+            numbers.subList(start, end).sum()
+        } else {
+            val mid = (start + end) / 2
+            val leftTask = SumTask(numbers, start, mid)
+            val rightTask = SumTask(numbers, mid, end)
+            leftTask.fork()  // Ejecutar la tarea izquierda en paralelo
+            rightTask.compute() + leftTask.join()  // Combinar resultados
+        }
+    }
+}
+
+fun sumListParallelForkJoin(numbers: List<Int>): Int {
+    val pool = ForkJoinPool()
+    val task = SumTask(numbers, 0, numbers.size)
+    return pool.invoke(task)
+}
+
+fun main() {
+    val numbers = List(1_000_000) { (1..10).random() }
+
+    // Ejecución secuencial
+    val timeSequential = measureTimeMillis {
+        println("Suma total secuencial: ${sumList(numbers)}")
+    }
+    println("Tiempo secuencial: $timeSequential ms")
+
+    // Ejecución paralela con corrutinas
+    val timeParallelCoroutine = measureTimeMillis {
+        println("Suma total paralela (corrutinas): ${sumListParallelCoroutine(numbers)}")
+    }
+    println("Tiempo paralelo (corrutinas): $timeParallelCoroutine ms")
+
+    // Ejecución paralela con ForkJoinPool
+    val timeParallelForkJoin = measureTimeMillis {
+        println("Suma total paralela (ForkJoin): ${sumListParallelForkJoin(numbers)}")
+    }
+    println("Tiempo paralelo (ForkJoin): $timeParallelForkJoin ms")
+}
+```
