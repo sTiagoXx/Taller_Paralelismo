@@ -1,6 +1,5 @@
-# Taller_Paralelismo
+# Taller Paralelismo
 
-## Taller de paralelismo en Kotlin
 ## Santiago Ruiz Rangel - Paradigmas de programación 
 
 
@@ -19,60 +18,60 @@ La diferencia principal es que el paralelismo requiere múltiples núcleos o pro
 
    Un núcleo de procesamiento es una unidad de procesamiento dentro de un procesador que puede ejecutar instrucciones de manera independiente. En el contexto de paralelismo, los núcleos permiten que múltiples tareas se ejecuten al mismo tiempo, ya que cada núcleo puede manejar su propio conjunto de instrucciones. Más núcleos significan más capacidad para procesar tareas en paralelo.
 
-4. ¿Qué significa que una operación sea “thread-safe” en programación paralela?
+### 4. ¿Qué significa que una operación sea “thread-safe” en programación paralela?
 
    Una operación es "thread-safe" si puede ser ejecutada de forma segura por múltiples hilos (threads) al mismo tiempo sin provocar condiciones de carrera ni resultados indeterminados. Esto suele lograrse usando mecanismos de sincronización, como bloqueos (locks), para asegurar que solo un hilo acceda a recursos compartidos en un momento dado.
 
 
 
-5. Define el concepto de “balanceo de carga” y su importancia en sistemas paralelos. 
+### 5. Define el concepto de “balanceo de carga” y su importancia en sistemas paralelos. 
 
    El balanceo de carga es la distribución equitativa del trabajo entre múltiples núcleos o procesadores en un sistema paralelo. Es crucial para maximizar el rendimiento, ya que evita que algunos núcleos estén sobrecargados mientras otros están inactivos, logrando así una ejecución más eficiente y tiempos de respuesta más rápidos.
 
 
 
-6. ¿Qué es una “condición de carrera” y cómo afecta a la programación paralela?
+### 6. ¿Qué es una “condición de carrera” y cómo afecta a la programación paralela?
 
    Una condición de carrera ocurre cuando dos o más hilos acceden y modifican una variable compartida al mismo tiempo, lo que lleva a resultados inconsistentes o indeterminados. Este problema afecta a la programación paralela, ya que puede provocar errores difíciles de detectar y depurar, afectando la confiabilidad del programa.
 
-7. ¿Cuál es la diferencia entre memoria compartida y paso de mensajes en paralelismo?
+### 7. ¿Cuál es la diferencia entre memoria compartida y paso de mensajes en paralelismo?
  
    En memoria compartida, los hilos o procesos tienen acceso a la misma área de memoria para intercambiar información, mientras que en el paso de mensajes, los procesos se comunican enviando mensajes entre sí sin compartir memoria. La memoria compartida es rápida pero puede causar condiciones de carrera, mientras que el paso de mensajes es más seguro para evitar interferencias, aunque puede ser menos eficiente.
 
-8. Define el término “overhead” en el contexto de paralelismo.
+### 8. Define el término “overhead” en el contexto de paralelismo.
 
    En el contexto de paralelismo, el "overhead" se refiere al tiempo y recursos adicionales necesarios para gestionar la paralelización, como la creación de hilos, la sincronización y la comunicación entre ellos. Un alto overhead puede reducir los beneficios del paralelismo si consume una cantidad significativa de recursos.
 
-9. ¿Qué es un “deadlock” y cómo puede ocurrir en sistemas paralelos? 
+### 9. ¿Qué es un “deadlock” y cómo puede ocurrir en sistemas paralelos? 
 
    Un deadlock (bloqueo mutuo) ocurre cuando dos o más hilos o procesos esperan indefinidamente por recursos que están siendo retenidos mutuamente. En sistemas paralelos, puede suceder cuando un proceso bloquea un recurso que otro necesita y viceversa, provocando que ambos se queden en un estado de espera sin poder continuar.
 
-10. ¿Cuál es el rol de un “scheduler” en la administración de tareas en paralelismo? 
+### 10. ¿Cuál es el rol de un “scheduler” en la administración de tareas en paralelismo? 
 
-	Un "scheduler" (planificador) es el componente encargado de asignar y gestionar la ejecución de tareas o hilos en los núcleos de procesamiento. En paralelismo, el scheduler optimiza la distribución de tareas, decide cuándo y dónde ejecutar cada tarea, y gestiona la prioridad y los recursos para maximizar el rendimiento del sistema y evitar conflictos.
+Un "scheduler" (planificador) es el componente encargado de asignar y gestionar la ejecución de tareas o hilos en los núcleos de procesamiento. En paralelismo, el scheduler optimiza la distribución de tareas, decide cuándo y dónde ejecutar cada tarea, y gestiona la prioridad y los recursos para maximizar el rendimiento del sistema y evitar conflictos.
 
 
-11. Describe cómo el paralelismo puede mejorar el rendimiento de un programa. Da un ejemplo general. 
+### 11. Describe cómo el paralelismo puede mejorar el rendimiento de un programa. Da un ejemplo general. 
 
    El paralelismo mejora el rendimiento de un programa al dividir una tarea compleja en sub-tareas más pequeñas que pueden ejecutarse simultáneamente en varios núcleos o procesadores. Esto reduce el tiempo total de ejecución en comparación con la ejecución secuencial.  
    **Ejemplo:** En el procesamiento de una gran cantidad de datos, como una imagen para aplicar filtros, cada sección de la imagen puede procesarse en paralelo, permitiendo que el procesamiento completo se realice mucho más rápido.
 
-12. Explica qué es una “condición de carrera” y proporciona un ejemplo de cómo podría ocurrir. 
+### 12. Explica qué es una “condición de carrera” y proporciona un ejemplo de cómo podría ocurrir. 
 
    Una "condición de carrera" ocurre cuando el resultado de un programa depende del orden en el que se ejecutan los hilos o procesos, lo cual no es controlado ni garantizado. Esto sucede cuando dos o más hilos acceden y modifican una variable compartida sin la adecuada sincronización, llevando a resultados inconsistentes.  
    **Ejemplo:** Dos hilos intentan incrementar el valor de una misma variable. Si ambos leen el valor inicial al mismo tiempo, lo incrementan y lo almacenan, el resultado final puede ser incorrecto, ya que ambos escribieron el mismo valor sin considerar el incremento del otro.
 
-13. ¿Por qué es importante la sincronización en programación paralela? Menciona alguna técnica de sincronización.
+### 13. ¿Por qué es importante la sincronización en programación paralela? Menciona alguna técnica de sincronización.
 
    La sincronización es crucial para evitar condiciones de carrera y garantizar la consistencia de los datos compartidos entre hilos. Sin sincronización, el acceso concurrente a los recursos puede llevar a errores y resultados impredecibles.  
    Técnica de sincronización: Los bloqueos o "locks" son una técnica común que permite que solo un hilo acceda a una sección crítica del código a la vez, asegurando así que las operaciones se realicen en orden y sin interferencias.
 
-14. Describe los posibles efectos del “overhead” en la ejecución de tareas en paralelo. 
+### 14. Describe los posibles efectos del “overhead” en la ejecución de tareas en paralelo. 
 
    El "overhead" en la ejecución de tareas paralelas se refiere a los recursos adicionales y tiempo que se emplean en la creación, sincronización y gestión de hilos o procesos. Si el overhead es muy alto, puede reducir los beneficios de la paralelización, ya que el tiempo de administración supera las mejoras en el tiempo de ejecución. Esto es especialmente notable en tareas pequeñas, donde el tiempo de coordinación es comparable o incluso mayor que el tiempo de ejecución de la tarea misma.
 
 
-15. Explica cómo se pueden evitar los deadlocks en un sistema paralelo.  
+### 15. Explica cómo se pueden evitar los deadlocks en un sistema paralelo.  
 
    Para evitar deadlocks, se pueden emplear varias estrategias, como:
    - Evitar la espera circular: asignar recursos en un orden definido y exigir que los procesos soliciten recursos en ese orden, previniendo que formen un ciclo de espera.
@@ -80,11 +79,11 @@ La diferencia principal es que el paralelismo requiere múltiples núcleos o pro
    - Desbloqueo de procesos (time-out): establecer un límite de tiempo para que un proceso obtenga recursos; si no lo consigue, libera los recursos asignados y vuelve a intentarlo.
    - Evitar la retención de recursos: hacer que los procesos liberen recursos antes de solicitar otros, reduciendo las dependencias entre ellos.
 
-16. ¿Cuáles son las ventajas y desventajas de utilizar memoria compartida en lugar de paso de mensajes en paralelismo?  
+### 16. ¿Cuáles son las ventajas y desventajas de utilizar memoria compartida en lugar de paso de mensajes en paralelismo?  
 
    - Ventajas de la memoria compartida:  
 
- 	- Mayor velocidad de comunicación, ya que los hilos acceden directamente a los datos en memoria sin necesidad de transferirlos.
+ - Mayor velocidad de comunicación, ya que los hilos acceden directamente a los datos en memoria sin necesidad de transferirlos.
  	- Menor latencia en el acceso a datos, ya que se evita el envío de mensajes.
    - Desventajas de la memoria compartida:  
  	- Necesidad de sincronización para evitar condiciones de carrera, lo que añade complejidad.
