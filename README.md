@@ -215,3 +215,26 @@ ForkJoinPool es altamente eficiente para tareas que pueden dividirse en subtarea
 Ventajas: Ideal para listas grandes en sistemas con múltiples núcleos, debido a su paralelización profunda y administración eficiente de tareas.
 Desventajas: Puede ser menos eficiente para listas pequeñas debido a la sobrecarga de gestionar la estructura de tareas.
 Tiempo esperado: Generalmente el tiempo más bajo en sistemas multicore, aprovechando la paralelización y optimización de recursos.
+
+## Ejemplo de resultados
+
+```kotlin
+
+Suma total secuencial: 5,000,000
+Tiempo secuencial: 150 ms
+
+Suma total paralela (corrutinas): 5,000,000
+Tiempo paralelo (corrutinas): 80 ms
+
+Suma total paralela (ForkJoin): 5,000,000
+Tiempo paralelo (ForkJoin): 60 ms
+```
+- Secuencial: tomó 150 ms, el tiempo más alto debido a la falta de paralelización.
+- Corrutinas: redujeron el tiempo a 80 ms, mostrando una mejora significativa en comparación con el método secuencial.
+- ForkJoinPool: fue el método más rápido (60 ms), mostrando que aprovecha mejor los recursos del sistema para listas grandes.
+### Conclusión
+
+Secuencial: Suficiente para listas pequeñas.
+Corrutinas: Adecuado para tamaños de listas medianas o en sistemas con pocos núcleos.
+ForkJoinPool: Recomendado para listas grandes y sistemas multicore.
+
